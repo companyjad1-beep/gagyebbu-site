@@ -10,14 +10,27 @@
     main { max-width: 560px; }
     h1 { margin: 0 0 12px; color: #A78BFA; font-size: 40px; }
     p { margin: 0; color: #C4C4C4; font-size: 18px; line-height: 1.6; }
+    ul { margin: 24px auto; padding: 0; list-style: none; color: #B8B8B8; line-height: 2; text-align: left; width: fit-content; }
+    .stores { display: grid; gap: 10px; margin-top: 24px; }
+    .store { display: grid; place-items: center; min-height: 48px; padding: 0 18px; border: 1px solid #4B5563; border-radius: 12px; color: #fff; text-decoration: none; font-weight: 700; }
     nav { margin-top: 28px; }
-    a { color: #B8B8B8; margin: 0 8px; }
+    nav a { color: #B8B8B8; margin: 0 8px; }
   </style>
 </head>
 <body>
   <main>
     <h1>가계쀼</h1>
     <p>말하면 기록되고, 쓰면 혼나는 AI 커플 가계부</p>
+    <ul>
+      <li>말로 간편하게 지출 기록</li>
+      <li>영수증 OCR 자동 입력</li>
+      <li>부부가 함께 쓰는 커플 공유</li>
+      <li>소비 습관을 짚어 주는 AI 잔소리</li>
+    </ul>
+    <div class="stores">
+      <a class="store" href="https://play.google.com/store/apps/details?id=com.gagyebbu.app">Google Play</a>
+      <a class="store" href="https://apps.apple.com/app/id6793096551">App Store</a>
+    </div>
     <nav aria-label="법정 고지">
       <a href="/privacy.html">개인정보 처리방침</a>
       <a href="/terms.html">이용약관</a>

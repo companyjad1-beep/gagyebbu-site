@@ -1,12 +1,27 @@
 <!doctype html>
 <html lang="ko">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>가계쀼</title></head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="가계쀼 커플 초대">
+  <meta property="og:description" content="초대 코드로 함께 가계부를 시작해요">
+  <meta name="robots" content="noindex">
+  <title>가계쀼</title>
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #1A1A2E; color: #fff; font-family: system-ui, -apple-system, sans-serif; }
+    p { color: #FCA5A5; }
+  </style>
+</head>
 <body>
+  <p id="error" hidden>잘못된 초대 링크</p>
   <script>
     const parts = location.pathname.split('/').filter(Boolean);
-    location.replace(parts[0] === 'i' && parts.length === 2
-      ? '/i/?code=' + encodeURIComponent(parts[1])
-      : '/');
+    const valid = parts[0] === 'i' && parts.length === 2 && /^\d{6}$/.test(parts[1]);
+    if (valid) {
+      location.replace('/i/?c=' + parts[1]);
+    } else {
+      document.getElementById('error').hidden = false;
+    }
   </script>
 </body>
 </html>
