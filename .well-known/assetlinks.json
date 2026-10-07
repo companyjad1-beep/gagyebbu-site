@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gagyebbu.app",
+      "sha256_cert_fingerprints": [
+        "1A:D0:CC:78:5B:F3:78:FD:69:92:2C:15:E2:12:FC:FB:63:FA:AD:32:C7:58:1D:8D:81:7E:08:11:F0:3F:D2:80",
+        "66:C6:E0:C5:D4:A0:04:8B:E1:13:63:13:80:D9:25:B9:95:84:E8:AF:3C:5F:75:E9:B9:36:10:CE:1B:B5:38:57"
+      ]
+    }
+  }
+]

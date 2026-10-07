@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1A1A2E">
+  <title>가계쀼 초대</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 20px; background: #1A1A2E; color: #fff; font-family: system-ui, -apple-system, sans-serif; }
+    main { width: min(100%, 480px); padding: 28px 20px; border-radius: 16px; background: #2A2A4A; text-align: center; }
+    h1 { margin: 0 0 8px; color: #A78BFA; font-size: 28px; }
+    .lead, #status { color: #B8B8B8; line-height: 1.6; }
+    .code { margin: 20px 0 12px; padding: 16px; border: 1px solid #A78BFA; border-radius: 12px; color: #A78BFA; font-size: 28px; font-weight: 700; letter-spacing: 3px; overflow-wrap: anywhere; }
+    button, .store { min-height: 48px; border: 0; border-radius: 12px; font: inherit; font-weight: 700; cursor: pointer; }
+    button { width: 100%; background: #A78BFA; color: #14142A; }
+    button:disabled { cursor: not-allowed; background: #4B5563; color: #C4C4C4; }
+    #status { margin: 16px 0; font-size: 14px; }
+    .stores { display: grid; gap: 10px; margin-top: 18px; }
+    .stores[hidden] { display: none; }
+    .store { display: grid; place-items: center; padding: 0 16px; background: #1A1A2E; color: #fff; text-decoration: none; border: 1px solid #4B5563; }
+    .error { color: #FCA5A5; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>가계쀼 초대</h1>
+    <p class="lead">함께 가계부를 관리할 초대 코드예요.</p>
+    <div id="code" class="code" aria-live="polite">확인 중</div>
+    <button id="copy" type="button">코드 복사</button>
+    <p id="status">앱이 설치돼 있으면 자동으로 열려요</p>
+    <div id="stores" class="stores" hidden>
+      <a id="android" class="store" href="https://play.google.com/store/apps/details?id=com.gagyebbu.app">Android 앱 다운로드</a>
+      <a class="store" href="https://apps.apple.com/app/id6793096551">iPhone/iPad 앱 다운로드</a>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const path = location.pathname.split('/').filter(Boolean);
+      const pathCode = path[0] === 'i' && path.length === 2 ? path[1] : '';
+      const code = pathCode || new URLSearchParams(location.search).get('code') || '';
+      const valid = /^\d+$/.test(code);
+      const codeEl = document.getElementById('code');
+      const copy = document.getElementById('copy');
+      const status = document.getElementById('status');
+      const stores = document.getElementById('stores');
+      const android = document.getElementById('android');
+
+      codeEl.textContent = valid ? code : '잘못된 초대 링크';
+      copy.disabled = !valid;
+      if (!valid) {
+        status.textContent = '초대 코드를 확인해 주세요.';
+        status.classList.add('error');
+        stores.hidden = false;
+        return;
+      }
+
+      android.href += '&referrer=invite%3D' + encodeURIComponent(code);
+      copy.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(code);
+        } catch (_) {
+          const input = document.createElement('textarea');
+          input.value = code;
+          input.style.position = 'fixed';
+          input.style.opacity = '0';
+          document.body.appendChild(input);
+          input.select();
+          document.execCommand('copy');
+          input.remove();
+        }
+        copy.textContent = '복사됐어요';
+      });
+
+      const iframe = document.createElement('iframe');
+      iframe.hidden = true;
+      iframe.src = 'com.gagyebbu.app://invite?code=' + encodeURIComponent(code);
+      document.body.appendChild(iframe);
+      setTimeout(() => {
+        iframe.remove();
+        stores.hidden = false;
+      }, 700);
+    })();
+  </script>
+</body>
+</html>

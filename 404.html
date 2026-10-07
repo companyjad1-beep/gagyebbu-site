@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>가계쀼</title></head>
+<body>
+  <script>
+    const parts = location.pathname.split('/').filter(Boolean);
+    location.replace(parts[0] === 'i' && parts.length === 2
+      ? '/i/?code=' + encodeURIComponent(parts[1])
+      : '/');
+  </script>
+</body>
+</html>
