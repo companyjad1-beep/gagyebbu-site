@@ -14,13 +14,16 @@
 </head>
 <body>
   <p id="error" hidden>잘못된 초대 링크</p>
+  <p id="missing" hidden style="color:#A1A1AA">페이지를 찾을 수 없어요. <a href="/" style="color:#A78BFA">가계쀼 홈으로</a></p>
   <script>
     const parts = location.pathname.split('/').filter(Boolean);
     const valid = parts[0] === 'i' && parts.length === 2 && /^\d{6}$/.test(parts[1]);
     if (valid) {
       location.replace('/i/?c=' + parts[1]);
-    } else {
+    } else if (parts[0] === 'i') {
       document.getElementById('error').hidden = false;
+    } else {
+      document.getElementById('missing').hidden = false;
     }
   </script>
 </body>
